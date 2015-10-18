@@ -13,8 +13,7 @@ foreach my $event (qw ( nethserver-shellinabox-update nethserver-shellinabox-sav
 # services to launch on event
 foreach my $event (qw ( nethserver-shellinabox-update nethserver-shellinabox-save)) {
 event_services($event,
-    'httpd' => 'reload',
-    'shellinaboxd' => 'restart');
+    'httpd' => 'reload');
 }
 
 # actions to do
@@ -24,7 +23,6 @@ event_actions($event,
 
 my $event = 'nethserver-shellinabox-save';
 event_actions($event,
-'runlevel-adjust' => '99',
-'firewall-adjust' => '70');
+'nethserver-shellinabox-service-conf' => '99');
 
 exit;
