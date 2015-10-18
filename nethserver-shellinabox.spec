@@ -8,7 +8,7 @@ Release: %{release}%{?dist}
 Distribution: SME Server
 License: GNU GPL version 2
 Group: SMEserver/addon
-Source: smeserver-shellinabox-%{version}.tar.gz
+Source: %{name}-%{version}.tar.gz
 BuildArchitectures: noarch
 BuildRoot: /var/tmp/%{name}-%{version}-buildroot
 BuildRequires: nethserver-devtools
