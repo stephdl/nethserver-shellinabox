@@ -12,7 +12,6 @@ Source: %{name}-%{version}.tar.gz
 BuildArchitectures: noarch
 BuildRoot: /var/tmp/%{name}-%{version}-buildroot
 BuildRequires: nethserver-devtools
-Requires: e-smith-release >= 9.0
 Requires: shellinabox >= 2.14
 Requires: nethserver-directory
 AutoReqProv: no
