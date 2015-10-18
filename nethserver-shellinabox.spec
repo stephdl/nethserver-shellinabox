@@ -1,7 +1,7 @@
 %define name nethserver-shellinabox
 %define version 0.0.1
 %define release 1
-Summary: shellinabox is an ajax webbase terminal
+Summary: shellinabox is an ajax webbased terminal
 Name: %{name}
 Version: %{version}
 Release: %{release}%{?dist}
@@ -20,13 +20,8 @@ AutoReqProv: no
 %description
  shellinabox is an ajax web based terminal 
 
-%changelog
-* Thu Jun 25 2013  stephane de labrusse <stephdl@de-labrusse.fr> 0.0.1-1.sme
-- initial release
-
 %prep
 %setup
-#%patch0 -p1
 %build
 perl createlinks
 
@@ -48,4 +43,6 @@ rm -rf $RPM_BUILD_ROOT
 %post
 
 
-
+%changelog
+* Thu Jun 25 2013  stephane de labrusse <stephdl@de-labrusse.fr> 0.0.1-1.sme
+- initial release
