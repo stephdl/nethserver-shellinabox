@@ -1,4 +1,2 @@
-smeserver-transmission
+nethserver-shellinabox
 ======================
-# nethserver-shellinabox
-# nethserver-shellinabox

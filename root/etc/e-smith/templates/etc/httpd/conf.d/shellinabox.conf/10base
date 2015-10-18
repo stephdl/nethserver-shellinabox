@@ -1,0 +1,60 @@
+{ 
+use esmith::DB;
+
+my $status = $shellinaboxd{'status'} || "disabled";
+    return "    # shellinabox is disabled in this VirtualHost"
+           unless $status eq 'enabled';
+
+$OUT .= qq(
+
+###########################################################
+########       shellinabox reverse proxy         ##########
+############################################################
+
+
+ProxyPass /${'shellinaboxd'}{Name} http://127.0.0.1:${'shellinaboxd'}{TCPPort}
+ProxyPassReverse /${'shellinaboxd'}{Name} http://127.0.0.1:${'shellinaboxd'}{TCPPort}
+
+<Location /$shellinaboxd{'Name'}>
+AuthName "$shellinaboxd{'Name'}"
+order deny,allow
+deny from all
+SSLRequireSSL
+);
+
+if ($shellinaboxd{'PublicAccess'} eq 'private')
+    {       
+    $OUT .= "allow from $localAccess\n";
+    } 
+
+elsif ($shellinaboxd{'PublicAccess'} eq 'public')
+    {
+    $OUT .= "allow from all\n";
+    }
+
+elsif ($shellinaboxd{'PublicAccess'} eq 'IP')
+    {
+    my @fixedip = split(",", ($shellinaboxd{'FixedIP'} || ""));
+    $OUT .= "allow from @fixedip\n";
+    }
+
+elsif (($shellinaboxd{'PublicAccess'} ne 'public') && ($shellinaboxd{'PublicAccess'} ne 'private'))
+    {
+    $OUT .= "allow from none\n";
+    }
+
+
+if (($shellinaboxd{'PublicAccess'} ne 'private') || ($shellinaboxd{'WebAuth'} eq 'enabled'))
+    {
+    my @users = split(",", ($shellinaboxd{ShellUsers} || "") );
+    $OUT .=  qq(
+AuthBasicProvider external
+AuthType Basic
+AuthExternal pwauth
+require user admin @users
+);
+    }
+
+$OUT .= "</Location>";	
+}
+
