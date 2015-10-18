@@ -11,7 +11,7 @@ my $event = 'nethserver-shellinabox-update';
 
 # services to launch on event
 event_services($event,
-    'httpd' => 'restart',
+    'httpd' => 'reload',
     'shellinaboxd' => 'restart');
 
 # actions to do
