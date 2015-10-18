@@ -1,4 +1,3 @@
-
 <?php
 namespace NethServer\Module\Dashboard\Applications;
 /**
@@ -14,9 +13,10 @@ class Shellinabox extends \Nethgui\Module\AbstractModule implements \NethServer\
     }
     public function getInfo()
     {
-         $webapp = $this->getPlatform()->getDatabase('configuration')->getProp('transmission-daemon','Name');
+         $webapp = $this->getPlatform()->getDatabase('configuration')->getProp('shellinaboxd','Name');
          $host = explode(':',$_SERVER['HTTP_HOST']);
          return array(
-            'Web_Terminal' => "https://".$host[0]."/$webapp",
+            'url_Terminal' => "https://".$host[0]."/$webapp"
          );
     }
+}
