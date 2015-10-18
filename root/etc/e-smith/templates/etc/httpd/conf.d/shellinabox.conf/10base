@@ -10,7 +10,22 @@
 
 
                         $OUT .= "    ##########\n";
-                        $OUT .= "        AddExternalAuth pwauth /usr/bin/pwauth\n";
+                        $y
+@stephdl stephdl * Mon May 4 2015 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.1-1
+1 contributor
+18 lines (14 sloc) 541 Bytes
+{
+    #---------------------------------------------------------------------
+    # Grab ValidFrom access list property of httpd-admin
+    # SSL enabled virtual hosts should only allow accesspec();
+    $localAccess .= join ' ',
+	map { s:/255.255.255.255::; $_ }
+	    @localAccess;
+
+    "";
+}
+:q!
+OUT .= "        AddExternalAuth pwauth /usr/bin/pwauth\n";
                         $OUT .= "        SetExternalAuthMethod pwauth pipe\n";
                         $OUT .= "    #########\n";
 
