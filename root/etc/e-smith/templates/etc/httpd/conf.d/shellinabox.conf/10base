@@ -1,0 +1,62 @@
+{ my $status = $shellinaboxd{'status'} || "disabled";
+    return "    # shellinabox is disabled in this VirtualHost"
+           unless $status eq 'enabled';
+
+	{
+	$OUT .= "###########################################################\n";
+	$OUT .= "#######       shellinabox reverse proxy         ##########\n";
+	$OUT .= "###########################################################\n";
+		{
+
+
+                        $OUT .= "    ##########\n";
+                        $OUT .= "        AddExternalAuth pwauth /usr/bin/pwauth\n";
+                        $OUT .= "        SetExternalAuthMethod pwauth pipe\n";
+                        $OUT .= "    #########\n";
+
+            
+
+			$OUT .= "#########\n";
+			$OUT .= "\<Location \/$shellinaboxd{'Name'}\>\n";
+                        $OUT .= "    ProxyPass http://localhost:$shellinaboxd{'TcpPort'}/"."\n";
+			$OUT .= "    order deny,allow\n";
+			$OUT .= "    deny from all\n";
+			$OUT .= "    SSLRequireSSL\n";
+
+		if ($shellinaboxd{'PublicAccess'} eq 'local')
+			{       
+		      	$OUT .= "    allow from $localAccess\n";
+			} 
+
+		elsif ($shellinaboxd{'PublicAccess'} eq 'global')
+			{
+		      	$OUT .= "    allow from all\n";
+			}
+                elsif ($shellinaboxd{'PublicAccess'} eq 'IP')
+                        {
+                        my $fixedip = $shellinaboxd{'FixedIP'} || "";
+                        $OUT .= "    allow from $fixedip\n";
+                        }
+
+
+		elsif (($shellinaboxd{'PublicAccess'} ne 'global') && ($shellinaboxd{'PublicAccess'} ne 'local'))
+			{
+		      	$OUT .= "    allow from none\n";
+			}
+
+			$OUT .= "    AuthName \"$shellinaboxd{'Name'}\"\n";   
+                        $OUT .= "    AuthBasicProvider external\n";
+			$OUT .= "    AuthType Basic\n";
+			$OUT .= "    AuthExternal pwauth\n";
+
+		if (($shellinaboxd{'PublicAccess'} ne 'local') || ($shellinaboxd{'WebAuth'} eq 'enabled'))
+                        {
+                        my @users = split(",", ($shellinaboxd{ShellUsers} || "") );
+                        $OUT .= "    require user admin @users\n";
+			}
+
+                        $OUT .= "\<\/Location\>\n";
+			$OUT .= "#########\n";
+		}
+	}
+}

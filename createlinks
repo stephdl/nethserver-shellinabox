@@ -1,0 +1,17 @@
+#!/usr/bin/perl -w
+
+use esmith::Build::CreateLinks qw(:all);
+
+####################
+# links to add
+my $event = 'nethserver-shellinabox-update';
+# templates to expand
+    templates2events("/etc/sysconfig/shellinaboxd", $event);
+    templates2events('/etc/httpd/conf.d/shellinabox.conf', $event);
+
+# services to launch on event
+event_services($event,
+    'httpd' => 'restart',
+    'shellinaboxd' => 'restart');
+
+# actions to do
