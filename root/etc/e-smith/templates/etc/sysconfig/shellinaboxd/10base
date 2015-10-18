@@ -6,7 +6,7 @@ USER=shellinabox
 GROUP=shellinabox
 CERTDIR=/var/lib/shellinabox
 {
-return "PORT=${'shellinaboxd'}{'TcpPort'}";
+return "PORT=${'shellinaboxd'}{'TCPPort'}";
 }
 #OPTS="--disable-ssl-menu -s /:LOGIN"
 #for root login
