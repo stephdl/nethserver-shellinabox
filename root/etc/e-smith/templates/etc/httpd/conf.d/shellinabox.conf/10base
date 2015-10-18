@@ -8,32 +8,12 @@
 	$OUT .= "###########################################################\n";
 		{
 
-
-                        $OUT .= "    ##########\n";
-                        $y
-@stephdl stephdl * Mon May 4 2015 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.1-1
-1 contributor
-18 lines (14 sloc) 541 Bytes
-{
-    #---------------------------------------------------------------------
-    # Grab ValidFrom access list property of httpd-admin
-    # SSL enabled virtual hosts should only allow accesspec();
-    $localAccess .= join ' ',
-	map { s:/255.255.255.255::; $_ }
-	    @localAccess;
-
-    "";
-}
-:q!
-OUT .= "        AddExternalAuth pwauth /usr/bin/pwauth\n";
-                        $OUT .= "        SetExternalAuthMethod pwauth pipe\n";
-                        $OUT .= "    #########\n";
-
-            
+$OUT .= "     ProxyPass /${'shellinaboxd'}{Name} http://127.0.0.1:${'shellinaboxd'}{TCPPort}";
+$OUT .= "    ProxyPassReverse /${'shellinaboxd'}{Name} http://127.0.0.1:${'shellinaboxd'}{TCPPort}";
 
 			$OUT .= "#########\n";
 			$OUT .= "\<Location \/$shellinaboxd{'Name'}\>\n";
-                        $OUT .= "    ProxyPass http://localhost:$shellinaboxd{'TcpPort'}/"."\n";
+#                        $OUT .= "    ProxyPass http://localhost:$shellinaboxd{'TcpPort'}/"."\n";
 			$OUT .= "    order deny,allow\n";
 			$OUT .= "    deny from all\n";
 			$OUT .= "    SSLRequireSSL\n";
