@@ -1,24 +1,27 @@
-{ my $status = $shellinaboxd{'status'} || "disabled";
+{ 
+use esmith::DB;
+#use esmith::ConfigDB;
+
+
+my $status = $shellinaboxd{'status'} || "disabled";
     return "    # shellinabox is disabled in this VirtualHost"
            unless $status eq 'enabled';
+$OUT .= qq(
 
-	{
-	$OUT .= "###########################################################\n";
-	$OUT .= "#######       shellinabox reverse proxy         ##########\n";
-	$OUT .= "###########################################################\n";
-		{
+###########################################################
+#######       shellinabox reverse proxy         ##########
+###########################################################
 
-$OUT .= "     ProxyPass /${'shellinaboxd'}{Name} http://127.0.0.1:${'shellinaboxd'}{TCPPort}";
-$OUT .= "    ProxyPassReverse /${'shellinaboxd'}{Name} http://127.0.0.1:${'shellinaboxd'}{TCPPort}";
+ProxyPass /${'shellinaboxd'}{Name} http://127.0.0.1:${'shellinaboxd'}{TCPPort}
+ProxyPassReverse /${'shellinaboxd'}{Name} http://127.0.0.1:${'shellinaboxd'}{TCPPort}
 
-			$OUT .= "#########\n";
-			$OUT .= "\<Location \/$shellinaboxd{'Name'}\>\n";
-#                        $OUT .= "    ProxyPass http://localhost:$shellinaboxd{'TcpPort'}/"."\n";
-			$OUT .= "    order deny,allow\n";
-			$OUT .= "    deny from all\n";
-			$OUT .= "    SSLRequireSSL\n";
-
-		if ($shellinaboxd{'PublicAccess'} eq 'local')
+#########
+<Location /$shellinaboxd{'Name'}>
+order deny,allow
+deny from all
+SSLRequireSSL
+);
+	if ($shellinaboxd{'PublicAccess'} eq 'local')
 			{       
 		      	$OUT .= "    allow from $localAccess\n";
 			} 
@@ -34,24 +37,29 @@ $OUT .= "    ProxyPassReverse /${'shellinaboxd'}{Name} http://127.0.0.1:${'shell
                         }
 
 
-		elsif (($shellinaboxd{'PublicAccess'} ne 'global') && ($shellinaboxd{'PublicAccess'} ne 'local'))
-			{
-		      	$OUT .= "    allow from none\n";
-			}
+#		elsif (($shellinaboxd{'PublicAccess'} ne 'global') && ($shellinaboxd{'PublicAccess'} ne 'local'))
+#			{
+#		      	$OUT .= "    allow from none\n";
+#			}
 
-			$OUT .= "    AuthName \"$shellinaboxd{'Name'}\"\n";   
-                        $OUT .= "    AuthBasicProvider external\n";
-			$OUT .= "    AuthType Basic\n";
-			$OUT .= "    AuthExternal pwauth\n";
 
-		if (($shellinaboxd{'PublicAccess'} ne 'local') || ($shellinaboxd{'WebAuth'} eq 'enabled'))
-                        {
-                        my @users = split(",", ($shellinaboxd{ShellUsers} || "") );
-                        $OUT .= "    require user admin @users\n";
-			}
+$OUT .= qq(
+AuthName "$shellinaboxd{'Name'}"
+AuthBasicProvider external
+AuthType Basic
+AuthExternal pwauth
+);
 
-                        $OUT .= "\<\/Location\>\n";
-			$OUT .= "#########\n";
-		}
-	}
+#		if (($shellinaboxd{'PublicAccess'} ne 'local') || ($shellinaboxd{'WebAuth'} eq 'enabled'))
+#                        {
+#                        my @users = split(",", ($shellinaboxd{ShellUsers} || "") );
+#                        $OUT .= "    require user admin @users\n";
+#			}
+
+$OUT .= qq(
+</Location>
+#########
+);
+	
 }
+
