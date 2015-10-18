@@ -13,7 +13,8 @@ BuildArchitectures: noarch
 BuildRoot: /var/tmp/%{name}-%{version}-buildroot
 BuildRequires: nethserver-devtools
 Requires: shellinabox >= 2.14
-Requires: nethserver-directory
+Requires: nethserver-directory nethserver-httpd
+Requires: pwauth mod_authnz_external
 AutoReqProv: no
 
 %description
