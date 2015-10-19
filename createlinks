@@ -19,10 +19,12 @@ event_services($event,
 # actions to do
 my $event = 'nethserver-shellinabox-update';
 event_actions($event, 
-             'initialize-default-databases' => '00');
+             'initialize-default-databases' => '00',
+             'nethserver-shellinabox-service-conf' => '99');
 
-my $event = 'nethserver-shellinabox-save';
-event_actions($event,
-'nethserver-shellinabox-service-conf' => '99');
+
+#my $event = 'nethserver-shellinabox-save';
+#event_actions($event,
+#'nethserver-shellinabox-service-conf' => '99');
 
 exit;
