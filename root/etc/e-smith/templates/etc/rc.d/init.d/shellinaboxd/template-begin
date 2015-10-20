@@ -1,3 +1,5 @@
+{
+$OUT = << 'EOF'
 #!/bin/sh
 #
 # shellinaboxd Takes care of starting and stopping shellinabox.
@@ -110,3 +112,5 @@ case "$1" in
         exit 2
 esac
 exit $?
+EOF
+}
