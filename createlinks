@@ -8,23 +8,26 @@ my $event = 'nethserver-shellinabox-update';
 foreach my $event (qw ( nethserver-shellinabox-update nethserver-shellinabox-save)) {
     templates2events("/etc/sysconfig/shellinaboxd", $event);
     templates2events('/etc/httpd/conf.d/shellinabox.conf', $event);
+    templates2events('/etc/rc.d/init.d/shellinaboxd', $event);
+
 }
 
 # services to launch on event
 foreach my $event (qw ( nethserver-shellinabox-update nethserver-shellinabox-save)) {
 event_services($event,
-    'httpd' => 'reload');
+    'httpd' => 'reload',
+    'shellinaboxd'=> 'restart');
 }
 
 # actions to do
 my $event = 'nethserver-shellinabox-update';
 event_actions($event, 
-             'initialize-default-databases' => '00',
-             'nethserver-shellinabox-service-conf' => '99');
+             'initialize-default-databases' => '00');
 
 
-#my $event = 'nethserver-shellinabox-save';
-#event_actions($event,
-#'nethserver-shellinabox-service-conf' => '99');
+my $event = 'nethserver-shellinabox-save';
+event_actions($event,
+'runlevel-adjust' => '70',
+'firewall-adjust' => '95');
 
 exit;
