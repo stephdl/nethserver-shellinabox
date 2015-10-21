@@ -24,10 +24,17 @@ my $event = 'nethserver-shellinabox-update';
 event_actions($event, 
              'initialize-default-databases' => '00');
 
-
 my $event = 'nethserver-shellinabox-save';
 event_actions($event,
 'runlevel-adjust' => '70',
 'firewall-adjust' => '95');
+
+#since we use an User Plugin Tab we need 
+#to expand template and restart services
+foreach my $event (qw ( user-create user-modify)) {
+    templates2events("/etc/httpd/conf.d/shellinabox.conf", $event);
+    event_services($event,
+                      'httpd' => 'reload');
+    }
 
 exit;

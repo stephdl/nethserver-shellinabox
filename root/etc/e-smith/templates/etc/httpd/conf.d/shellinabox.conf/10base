@@ -1,5 +1,7 @@
 { 
 use esmith::DB;
+use esmith::AccountsDB;
+my $acc = esmith::AccountsDB->open_ro; 
 
 my $status = $shellinaboxd{'status'} || "disabled";
     return "    # shellinabox is disabled in this VirtualHost"
@@ -34,8 +36,12 @@ elsif ($shellinaboxd{'PublicAccess'} eq 'public')
 
 elsif ($shellinaboxd{'PublicAccess'} eq 'IP')
     {
-    my @fixedip = split(",", ($shellinaboxd{'FixedIP'} || ""));
-    $OUT .= "allow from @fixedip\n";
+    my @fixedip = split(/\s+/, ($shellinaboxd{'FixedIP'} || ""));
+    my $ipform ='';
+    foreach (@fixedip) {
+        $ipform = $ipform . ' ' . $_;
+        }
+    $OUT .= "allow from $ipform\n";
     }
 
 elsif (($shellinaboxd{'PublicAccess'} ne 'public') && ($shellinaboxd{'PublicAccess'} ne 'private'))
@@ -46,15 +52,19 @@ elsif (($shellinaboxd{'PublicAccess'} ne 'public') && ($shellinaboxd{'PublicAcce
 
 if (($shellinaboxd{'PublicAccess'} ne 'private') || ($shellinaboxd{'WebAuth'} eq 'enabled'))
     {
-    my @users = split(",", ($shellinaboxd{ShellUsers} || "") );
     $OUT .=  qq(
 AuthBasicProvider external
 AuthType Basic
 AuthExternal pwauth
-require user admin @users
 );
+$OUT .= "require user ";
+foreach my $user ($acc->users()) {
+    my $username = $user->key;
+    my $shelluser = $user->prop('ShellinaboxUser') || 'disabled';
+    next unless  ($shelluser eq 'enabled');
+    $OUT .= " $username";
+    }
     }
 
-$OUT .= "</Location>";	
+$OUT .= "\n</Location>";	
 }
-
