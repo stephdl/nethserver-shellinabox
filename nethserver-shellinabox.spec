@@ -1,5 +1,5 @@
 %define name nethserver-shellinabox
-%define version 0.0.4
+%define version 0.0.5
 %define release 1
 Summary: shellinabox is an ajax webbased terminal
 Name: %{name}
@@ -23,6 +23,7 @@ AutoReqProv: no
 %prep
 %setup
 %build
+%{makedocs}
 perl createlinks
 
 %install
@@ -44,6 +45,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Oct 23 2015 stephane de labrusse <stephdl@de-labrusse.fr> 0.0.5-1.sme
+- Help files created
+
 * Tue Oct 20 2015 stephane de labrusse <stephdl@de-labrusse.fr> 0.0.4-1.sme
 - a panel in Nethgui for the shellinabox settings
 
