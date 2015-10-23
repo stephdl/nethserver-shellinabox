@@ -19,11 +19,11 @@ Force the user restricted access
     the apache autentication is not a mandatory but you can force it here.
     A user needs to be allowed by apache, but it still needs a shell access to the system.
 
-Private access
+Private Access
     You can use shellinabox only on your Local network. The Apache authentication can be forced.
 
-Public access
+Public Access
     You can use shellinabox outside of your Local network. The Apache authentication is a mandatory.
 
-IP restricted access
+IP Access
     The access is allowed only for the specified list of IP (one IP per line). The Apache authentication is a mandatory.
