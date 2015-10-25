@@ -7,5 +7,5 @@ $L['Name_label'] = 'Web Alias name';
 $L['PublicAccess_public_label'] = 'Public Access';
 $L['PublicAccess_private_label'] = 'Private Access';
 $L['PublicAccess_IP_label'] = 'IP Access';
-$L['FixedIP_label'] = 'Specify one IP per line';
+$L['FixedIP_label'] = 'Specify one IP/Network per line';
 $L['WebAuth_label'] = 'Force the user restricted access';
