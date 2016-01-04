@@ -9,6 +9,7 @@ foreach my $event (qw ( nethserver-shellinabox-update nethserver-shellinabox-sav
     templates2events("/etc/sysconfig/shellinaboxd", $event);
     templates2events('/etc/httpd/conf.d/shellinabox.conf', $event);
     templates2events('/etc/rc.d/init.d/shellinaboxd', $event);
+    templates2events('/etc/httpd/conf/httpd.conf', $event);
 
 }
 
