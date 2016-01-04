@@ -40,7 +40,7 @@ start() {
     echo -n $"Starting $prog: "
     cd $WORKING_DIR
     #daemon redirected to /dev/null because the event hang
-    daemon $prog -u $USER -g $GROUP --cert=${CERTDIR} --port=${PORT} --background=$pid --localhost-only --disable-ssl $OPTS >/dev/null 2>&1
+    daemon $prog -u $USER -g $GROUP --cert=${CERTDIR} --port=${PORT} --background=$pid $OPTS >/dev/null 2>&1
     status $prog
 #    retval=$?
 #    echo
