@@ -9,3 +9,4 @@ $L['PublicAccess_private_label'] = 'Private Access';
 $L['PublicAccess_IP_label'] = 'IP Access';
 $L['FixedIP_label'] = 'Specify one IP/Network per line';
 $L['WebAuth_label'] = 'Force the user restricted access';
+$L['ShellUsers_label'] = 'Specify one allowed user per line';

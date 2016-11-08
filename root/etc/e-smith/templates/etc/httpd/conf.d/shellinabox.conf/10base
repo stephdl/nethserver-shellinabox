@@ -19,19 +19,17 @@ ProxyPassReverse /${'shellinaboxd'}{Name} http://127.0.0.1:${'shellinaboxd'}{TCP
 
 <Location /$shellinaboxd{'Name'}>
 AuthName "$shellinaboxd{'Name'}"
-order deny,allow
-deny from all
 SSLRequireSSL
 );
 
 if ($shellinaboxd{'PublicAccess'} eq 'private')
     {       
-    $OUT .= "allow from $localAccess\n";
+    $OUT .= "Require ip  $localAccess\n";
     } 
 
 elsif ($shellinaboxd{'PublicAccess'} eq 'public')
     {
-    $OUT .= "allow from all\n";
+    $OUT .= "Require all granted\n";
     }
 
 elsif ($shellinaboxd{'PublicAccess'} eq 'IP')
@@ -41,12 +39,12 @@ elsif ($shellinaboxd{'PublicAccess'} eq 'IP')
     foreach (@fixedip) {
         $ipform = $ipform . ' ' . $_;
         }
-    $OUT .= "allow from $ipform\n";
+    $OUT .= "Require ip  $ipform\n";
     }
 
 elsif (($shellinaboxd{'PublicAccess'} ne 'public') && ($shellinaboxd{'PublicAccess'} ne 'private'))
     {
-    $OUT .= "allow from none\n";
+    $OUT .= "Require all denied\n";
     }
 
 
@@ -57,13 +55,13 @@ AuthBasicProvider external
 AuthType Basic
 AuthExternal pwauth
 );
-$OUT .= "require user ";
-foreach my $user ($acc->users()) {
-    my $username = $user->key;
-    my $shelluser = $user->prop('ShellinaboxUser') || 'disabled';
-    next unless  ($shelluser eq 'enabled');
-    $OUT .= " $username";
-    }
+    my @shelluser = split(/\s+/, ($shellinaboxd{'ShellUsers'} || ""));
+    my $shelluser ="admin admin\@$DomainName";
+    foreach (@shelluser) {
+        $shelluser = $shelluser . ' ' . $_;
+        }
+    $OUT .= "Require user $shelluser\n";
+
     }
 
 $OUT .= "\n</Location>";	
