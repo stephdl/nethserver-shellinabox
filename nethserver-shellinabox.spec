@@ -1,5 +1,5 @@
 %define name nethserver-shellinabox
-%define version 0.0.8
+%define version 0.1.0
 %define release 1
 Summary: shellinabox is an ajax webbased terminal
 Name: %{name}
@@ -13,7 +13,7 @@ BuildArchitectures: noarch
 BuildRoot: /var/tmp/%{name}-%{version}-buildroot
 BuildRequires: nethserver-devtools
 Requires: shellinabox >= 2.18
-Requires: nethserver-directory nethserver-httpd
+Requires:  nethserver-httpd
 Requires: pwauth mod_authnz_external
 AutoReqProv: no
 
@@ -30,7 +30,7 @@ perl createlinks
 rm -rf $RPM_BUILD_ROOT
 (cd root ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 rm -f %{name}-%{version}-filelist
-/sbin/e-smith/genfilelist $RPM_BUILD_ROOT \
+%{genfilelist} $RPM_BUILD_ROOT \
      > %{name}-%{version}-filelist
 
 %clean
@@ -38,13 +38,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}-%{version}-filelist
 %defattr(-,root,root)
-
+%dir %{_nseventsdir}/%{name}-update
 %pre
 
 %post
 
 
 %changelog
+* Wed Nov 09 2016 stephane de labrusse <stephdl@de-labrusse.fr> 0.1.0-1.ns7
+- NS7 adaptation
+
 * Sun Jan 10 2016 stephane de labrusse <stephdl@de-labrusse.fr> 0.0.8-1.sme
 - Restrict the deamon to localhost and disable ssl
 - Expand the httpd.conf following the shellinabox events

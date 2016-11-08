@@ -16,7 +16,7 @@ class Shellinabox extends \Nethgui\Module\AbstractModule implements \NethServer\
          $webapp = $this->getPlatform()->getDatabase('configuration')->getProp('shellinaboxd','Name');
          $host = explode(':',$_SERVER['HTTP_HOST']);
          return array(
-            'url_Terminal' => "https://".$host[0]."/$webapp"
+            'url' => "https://".$host[0]."/$webapp"
          );
     }
 }

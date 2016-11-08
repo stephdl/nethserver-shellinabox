@@ -25,6 +25,7 @@ class ShellInaBox extends \Nethgui\Controller\AbstractController
         $this->declareParameter('TCPPort', Validate::PORTNUMBER, array('configuration', 'shellinaboxd', 'TCPPort'));
         $this->declareParameter('status', Validate::SERVICESTATUS, array('configuration', 'shellinaboxd', 'status'));
         $this->declareParameter('WebAuth', Validate::SERVICESTATUS, array('configuration', 'shellinaboxd', 'WebAuth'));
+        $this->declareParameter('ShellUsers', Validate::ANYTHING, array('configuration', 'shellinaboxd', 'ShellUsers'));
         $this->declareParameter('PublicAccess', $this->createValidator()->memberOf('private','public','IP'), array('configuration', 'shellinaboxd', 'PublicAccess'));
     }
 
