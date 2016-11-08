@@ -20,16 +20,19 @@ ProxyPassReverse /${'shellinaboxd'}{Name} http://127.0.0.1:${'shellinaboxd'}{TCP
 <Location /$shellinaboxd{'Name'}>
 AuthName "$shellinaboxd{'Name'}"
 SSLRequireSSL
+Satisfy All
+order deny,allow
+deny from all
 );
 
 if ($shellinaboxd{'PublicAccess'} eq 'private')
     {       
-    $OUT .= "Require ip  $localAccess\n";
+    $OUT .= "allow from  $localAccess\n";
     } 
 
 elsif ($shellinaboxd{'PublicAccess'} eq 'public')
     {
-    $OUT .= "Require all granted\n";
+    $OUT .= "allow from  all\n";
     }
 
 elsif ($shellinaboxd{'PublicAccess'} eq 'IP')
@@ -39,12 +42,12 @@ elsif ($shellinaboxd{'PublicAccess'} eq 'IP')
     foreach (@fixedip) {
         $ipform = $ipform . ' ' . $_;
         }
-    $OUT .= "Require ip  $ipform\n";
+    $OUT .= "allow from  $ipform\n";
     }
 
 elsif (($shellinaboxd{'PublicAccess'} ne 'public') && ($shellinaboxd{'PublicAccess'} ne 'private'))
     {
-    $OUT .= "Require all denied\n";
+    $OUT .= "allow from none\n";
     }
 
 
