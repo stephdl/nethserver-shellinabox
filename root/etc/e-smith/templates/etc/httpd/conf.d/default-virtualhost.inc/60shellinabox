@@ -1,9 +1,0 @@
-#
-#60shellinabox
-#
-{
-my $name = ${'shellinaboxd'}{'Name'} || 'shell';
-
-$OUT .= " RewriteEngine On\n";
-$OUT .= " RewriteRule ^/$name(/.*|\$)    https://%{HTTP_HOST}/$name\$1 [L,R]\n";
-}

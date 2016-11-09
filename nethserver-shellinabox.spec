@@ -1,5 +1,5 @@
 %define name nethserver-shellinabox
-%define version 0.1.0
+%define version 0.1.1
 %define release 1
 Summary: shellinabox is an ajax webbased terminal
 Name: %{name}
@@ -14,7 +14,7 @@ BuildRoot: /var/tmp/%{name}-%{version}-buildroot
 BuildRequires: nethserver-devtools
 Requires: shellinabox >= 2.18
 Requires:  nethserver-httpd
-Requires: pwauth mod_authnz_external
+Requires: mod_authnz_pam 
 AutoReqProv: no
 
 %description
@@ -45,6 +45,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Nov 11 2016 stephane de labrusse <stephdl@de-labrusse.fr> 0.1.1-1.ns7
+- shellinabox is displayed in the server-manager
+
 * Wed Nov 09 2016 stephane de labrusse <stephdl@de-labrusse.fr> 0.1.0-1.ns7
 - NS7 adaptation
 
