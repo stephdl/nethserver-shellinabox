@@ -14,7 +14,7 @@ BuildRoot: /var/tmp/%{name}-%{version}-buildroot
 BuildRequires: nethserver-devtools
 Requires: shellinabox >= 2.18
 Requires:  nethserver-httpd
-Requires: pwauth mod_authnz_external
+Requires: mod_authnz_pam 
 AutoReqProv: no
 
 %description
