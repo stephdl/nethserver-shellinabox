@@ -26,6 +26,9 @@ $OUT .= qq(
 <IfModule !cgi_module>
     LoadModule cgi_module modules/mod_cgi.so
 </IfModule>
+<IfModule !authnz_pam_module>
+ LoadModule authnz_pam_module modules/mod_authnz_pam.so
+</IfModule>
 
 ProxyPass /${'shellinaboxd'}{alias} http://127.0.0.1:${'shellinaboxd'}{TCPPort}
 ProxyPassReverse /${'shellinaboxd'}{alias} http://127.0.0.1:${'shellinaboxd'}{TCPPort}
@@ -64,12 +67,12 @@ elsif (($shellinaboxd{'PublicAccess'} ne 'public') && ($shellinaboxd{'PublicAcce
     }
 
 
-if (($shellinaboxd{'PublicAccess'} ne 'private') || ($shellinaboxd{'WebAuth'} eq 'enabled'))
+if (($shellinaboxd{'PublicAccess'} eq 'public') || ($shellinaboxd{'WebAuth'} eq 'enabled'))
     {
     $OUT .=  qq(
-AuthBasicProvider external
-AuthType Basic
-AuthExternal pwauth
+    AuthType Basic
+    AuthBasicProvider PAM
+    AuthPAMService shellinabox
 );
     my @shelluser = split(/\s+/, ($shellinaboxd{'ShellUsers'} || ""));
     my $shelluser ="admin admin\@$DomainName";

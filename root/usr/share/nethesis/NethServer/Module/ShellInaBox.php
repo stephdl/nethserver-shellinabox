@@ -21,7 +21,6 @@ class ShellInaBox extends \Nethgui\Controller\AbstractController
     {
         parent::initialize();
         $this->declareParameter('FixedIP', Validate::ANYTHING, array('configuration', 'shellinaboxd', 'FixedIP'));
-        $this->declareParameter('Name', Validate::ANYTHING, array('configuration', 'shellinaboxd', 'Name'));
         $this->declareParameter('TCPPort', Validate::PORTNUMBER, array('configuration', 'shellinaboxd', 'TCPPort'));
         $this->declareParameter('status', Validate::SERVICESTATUS, array('configuration', 'shellinaboxd', 'status'));
         $this->declareParameter('WebAuth', Validate::SERVICESTATUS, array('configuration', 'shellinaboxd', 'WebAuth'));
