@@ -24,8 +24,6 @@ echo $view->panel()
 
     ->insert($view->textArea('ShellUsers', $view::LABEL_ABOVE)->setAttribute('dimensions', '5x30')->setAttribute('placeholder', $view['ShellUsers_default']))
     
-    ->insert($view->panel()->insert($view->literal("URL: <a href='$url' target='_blank'>$url</a>")->setAttribute('hsc', FALSE)))
-
 ;
 
 echo $view->buttonList($view::BUTTON_SUBMIT | $view::BUTTON_HELP);

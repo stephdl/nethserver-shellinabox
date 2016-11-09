@@ -7,15 +7,13 @@ my $event = 'nethserver-shellinabox-update';
 # templates to expand
 foreach my $event (qw ( nethserver-shellinabox-update nethserver-shellinabox-save)) {
     templates2events("/etc/sysconfig/shellinaboxd", $event);
-    templates2events('/etc/httpd/conf.d/shellinabox.conf', $event);
-    templates2events('/etc/httpd/conf.d/default-virtualhost.inc', $event);
-
+    templates2events('/etc/httpd/admin-conf.d/shellinabox.conf', $event);
 }
 
 # services to launch on event
 foreach my $event (qw ( nethserver-shellinabox-update nethserver-shellinabox-save)) {
 event_services($event,
-    'httpd' => 'reload',
+    'httpd-admin' => 'reload',
     'shellinaboxd'=> 'restart');
 }
 

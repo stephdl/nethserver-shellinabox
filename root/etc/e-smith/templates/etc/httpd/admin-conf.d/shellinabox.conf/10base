@@ -1,7 +1,17 @@
-{ 
+{
 use esmith::DB;
 use esmith::AccountsDB;
-my $acc = esmith::AccountsDB->open_ro; 
+use esmith::util;
+
+    my $confdb = esmith::ConfigDB->open;
+    my $shell = $confdb->get('shellinaboxd') or die "No shellinaboxd db entry found\n";
+    my $alias = $shell->prop('alias') || "";
+
+    # initialize alias if needed
+    if ($alias eq "") {
+        $alias = esmith::util::genRandomHash();
+        $confdb->set_prop('cgp','alias',$alias);
+}
 
 my $status = $shellinaboxd{'status'} || "disabled";
     return "    # shellinabox is disabled in this VirtualHost"
@@ -13,12 +23,15 @@ $OUT .= qq(
 ########       shellinabox reverse proxy         ##########
 ############################################################
 
+<IfModule !cgi_module>
+    LoadModule cgi_module modules/mod_cgi.so
+</IfModule>
 
-ProxyPass /${'shellinaboxd'}{Name} http://127.0.0.1:${'shellinaboxd'}{TCPPort}
-ProxyPassReverse /${'shellinaboxd'}{Name} http://127.0.0.1:${'shellinaboxd'}{TCPPort}
+ProxyPass /${'shellinaboxd'}{alias} http://127.0.0.1:${'shellinaboxd'}{TCPPort}
+ProxyPassReverse /${'shellinaboxd'}{alias} http://127.0.0.1:${'shellinaboxd'}{TCPPort}
 
-<Location /$shellinaboxd{'Name'}>
-AuthName "$shellinaboxd{'Name'}"
+<Location /$shellinaboxd{'alias'}>
+AuthName "shellinabox"
 SSLRequireSSL
 Satisfy All
 order deny,allow
@@ -26,9 +39,9 @@ deny from all
 );
 
 if ($shellinaboxd{'PublicAccess'} eq 'private')
-    {       
+    {
     $OUT .= "allow from  $localAccess\n";
-    } 
+    }
 
 elsif ($shellinaboxd{'PublicAccess'} eq 'public')
     {
@@ -67,5 +80,5 @@ AuthExternal pwauth
 
     }
 
-$OUT .= "\n</Location>";	
+$OUT .= "\n</Location>";
 }
