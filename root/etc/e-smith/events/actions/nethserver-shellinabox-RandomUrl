@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+use esmith::DB;
+use esmith::util;
+
+    my $confdb = esmith::ConfigDB->open;
+    my $shell = $confdb->get('shellinaboxd') or die "No shellinaboxd db entry found\n";
+    my $alias = $shell->prop('alias') || "";
+
+    # initialize alias if needed
+    if ($alias eq "") {
+        $alias = esmith::util::genRandomHash();
+        $confdb->set_prop('shellinaboxd','alias',$alias);
+}

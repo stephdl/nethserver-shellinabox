@@ -19,10 +19,12 @@ event_services($event, 'shellinaboxd'=> 'restart');
 my $event = 'nethserver-shellinabox-update';
 event_actions($event, 
              'initialize-default-databases' => '00',
+             'nethserver-shellinabox-RandomUrl' => '01',
              'nethserver-httpd-admin-asyncreload' => '99');
 
 my $event = 'nethserver-shellinabox-save';
 event_actions($event,
+             'nethserver-shellinabox-RandomUrl' => '01',
              'runlevel-adjust' => '70',
              'firewall-adjust' => '95',
              'nethserver-httpd-admin-asyncreload' => '99');

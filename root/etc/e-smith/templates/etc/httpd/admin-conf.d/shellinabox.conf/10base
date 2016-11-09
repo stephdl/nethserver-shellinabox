@@ -1,6 +1,5 @@
 {
 use esmith::DB;
-use esmith::AccountsDB;
 use esmith::util;
 
     my $confdb = esmith::ConfigDB->open;
