@@ -26,4 +26,4 @@ Public Access
     You can use shellinabox outside of your Local network. The Apache authentication is a mandatory.
 
 IP Access
-    The access is allowed only for the specified list of IP (one IP per line). The Apache authentication is a mandatory.
+    The access is allowed only for the specified list of IP (one IP per line). The Apache authentication can be  a mandatory.
