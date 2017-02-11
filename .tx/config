@@ -1,0 +1,15 @@
+[main]
+host = https://www.transifex.com
+
+[nethserver.ShellInaBox]
+source_file = root/usr/share/nethesis/NethServer/Language/en/NethServer_Module_ShellInaBox.php
+source_lang = en
+type = PHP_ALT_ARRAY
+
+
+[nethserver.Shell]
+source_file = root/usr/share/nethesis/NethServer/Language/en/NethServer_Module_Shell.php
+source_lang = en
+type = PHP_ALT_ARRAY
+
+
