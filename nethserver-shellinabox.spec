@@ -1,6 +1,6 @@
 %define name nethserver-shellinabox
 %define version 0.0.8
-%define release 1
+%define release 2
 Summary: shellinabox is an ajax webbased terminal
 Name: %{name}
 Version: %{version}
@@ -38,13 +38,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}-%{version}-filelist
 %defattr(-,root,root)
-
+%doc COPYING
 %pre
 
 %post
 
 
 %changelog
+* Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.8-2.ns6
+- GPL license
+
 * Sun Jan 10 2016 stephane de labrusse <stephdl@de-labrusse.fr> 0.0.8-1.sme
 - Restrict the deamon to localhost and disable ssl
 - Expand the httpd.conf following the shellinabox events
