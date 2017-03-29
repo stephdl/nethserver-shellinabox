@@ -38,4 +38,7 @@ foreach my $event (qw ( user-create user-modify)) {
                       'httpd' => 'reload');
     }
 
-exit;
+
+my $event = 'trusted-networks-modify';
+    templates2events("/etc/httpd/conf.d/shellinabox.conf", $event);
+
