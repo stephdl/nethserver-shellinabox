@@ -28,4 +28,9 @@ event_actions($event,
              'runlevel-adjust' => '70',
              'firewall-adjust' => '95',
              'nethserver-httpd-admin-asyncreload' => '99');
-exit;
+
+my $event = 'trusted-networks-modify';
+    templates2events('/etc/httpd/admin-conf.d/shellinabox.conf', $event);
+event_actions($event,
+             'nethserver-httpd-admin-asyncreload' => '99');
+
