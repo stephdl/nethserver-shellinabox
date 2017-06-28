@@ -11,7 +11,7 @@ class Shell extends \Nethgui\Controller\AbstractController
 {
     protected function initializeAttributes(\Nethgui\Module\ModuleAttributesInterface $base)
     {
-        return \Nethgui\Module\SimpleModuleAttributesProvider::extendModuleAttributes($base, 'Status');
+        return \Nethgui\Module\SimpleModuleAttributesProvider::extendModuleAttributes($base, 'Administration');
     }
     public function prepareView(\Nethgui\View\ViewInterface $view)
     {

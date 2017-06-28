@@ -14,7 +14,7 @@ class ShellInaBox extends \Nethgui\Controller\AbstractController
 
     protected function initializeAttributes(\Nethgui\Module\ModuleAttributesInterface $base)
     {
-        return \Nethgui\Module\SimpleModuleAttributesProvider::extendModuleAttributes($base, 'Security', 6);
+        return \Nethgui\Module\SimpleModuleAttributesProvider::extendModuleAttributes($base, 'Configuration', 6);
     }
 
     public function initialize()
