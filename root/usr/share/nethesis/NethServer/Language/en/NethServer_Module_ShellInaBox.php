@@ -9,3 +9,4 @@ $L['PublicAccess_private_label'] = 'Private Access';
 $L['PublicAccess_IP_label'] = 'IP Access';
 $L['FixedIP_label'] = 'Specify one IP/Network per line';
 $L['WebAuth_label'] = 'Force the user restricted access';
+$L['ShellInaBox_Description'] = 'Settings of the ssh web-based terminal';
