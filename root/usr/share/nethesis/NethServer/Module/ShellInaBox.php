@@ -1,9 +1,6 @@
 <?php
 namespace NethServer\Module;
-
-
 use Nethgui\System\PlatformInterface as Validate;
-
 /**
  * Control shellinabox access to the system
  * 
@@ -11,12 +8,10 @@ use Nethgui\System\PlatformInterface as Validate;
  */
 class ShellInaBox extends \Nethgui\Controller\AbstractController
 {
-
     protected function initializeAttributes(\Nethgui\Module\ModuleAttributesInterface $base)
     {
         return \Nethgui\Module\SimpleModuleAttributesProvider::extendModuleAttributes($base, 'Configuration', 6);
     }
-
     public function initialize()
     {
         parent::initialize();
@@ -24,14 +19,11 @@ class ShellInaBox extends \Nethgui\Controller\AbstractController
         $this->declareParameter('TCPPort', Validate::PORTNUMBER, array('configuration', 'shellinaboxd', 'TCPPort'));
         $this->declareParameter('status', Validate::SERVICESTATUS, array('configuration', 'shellinaboxd', 'status'));
         $this->declareParameter('WebAuth', Validate::SERVICESTATUS, array('configuration', 'shellinaboxd', 'WebAuth'));
-        $this->declareParameter('ShellUsers', Validate::ANYTHING, array('configuration', 'shellinaboxd', 'ShellUsers'));
         $this->declareParameter('PublicAccess', $this->createValidator()->memberOf('private','public','IP'), array('configuration', 'shellinaboxd', 'PublicAccess'));
     }
-
     protected function onParametersSaved($changedParameters)
     {
         parent::onParametersSaved($changedParameters);
         $this->getPlatform()->signalEvent('nethserver-shellinabox-save');
     }
-
 }

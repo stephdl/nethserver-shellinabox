@@ -11,9 +11,6 @@ Shellinabox is a web based terminal that uses Ajax technology to provide the loo
 TCP Port
     Set the daemon TCP port.
 
-Web Alias name
-    Set the web alias name, by default shellinabox is reachable at  https://URL_OR_IP/shell
-
 Force the user restricted access
     Apache is used to restrict access to users,  When  Shellinabox is  set to the private access, 
     the apache autentication is not a mandatory but you can force it here.

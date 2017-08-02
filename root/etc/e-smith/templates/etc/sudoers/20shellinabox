@@ -1,0 +1,9 @@
+{
+    #
+    # srvmgr must authenticate users through pwauth
+    # by stephane de Labrusse 
+    push @cmnd_alias_httpd_admin, qw(
+        /usr/bin/pwauth
+    );
+    '';
+}

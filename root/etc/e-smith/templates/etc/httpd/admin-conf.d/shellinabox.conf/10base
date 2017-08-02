@@ -1,6 +1,9 @@
 {
 use esmith::DB;
 use esmith::util;
+use esmith::AccountsDB;
+
+my $acc = esmith::AccountsDB->open_ro;
 
     my $confdb = esmith::ConfigDB->open;
     my $shell = $confdb->get('shellinaboxd') or die "No shellinaboxd db entry found\n";
@@ -25,9 +28,11 @@ $OUT .= qq(
 <IfModule !cgi_module>
     LoadModule cgi_module modules/mod_cgi.so
 </IfModule>
-<IfModule !authnz_pam_module>
- LoadModule authnz_pam_module modules/mod_authnz_pam.so
-</IfModule>
+
+LoadModule auth_basic_module modules/mod_auth_basic.so
+LoadModule authz_user_module modules/mod_authz_user.so
+LoadModule authnz_external_module modules/mod_authnz_external.so
+DefineExternalAuth pwauth pipe '/usr/bin/sudo /usr/bin/pwauth'
 
 ProxyPass /${'shellinaboxd'}{alias} http://127.0.0.1:${'shellinaboxd'}{TCPPort}
 ProxyPassReverse /${'shellinaboxd'}{alias} http://127.0.0.1:${'shellinaboxd'}{TCPPort}
@@ -69,17 +74,18 @@ elsif (($shellinaboxd{'PublicAccess'} ne 'public') && ($shellinaboxd{'PublicAcce
 if (($shellinaboxd{'PublicAccess'} eq 'public') || ($shellinaboxd{'WebAuth'} eq 'enabled'))
     {
     $OUT .=  qq(
-    AuthType Basic
-    AuthBasicProvider PAM
-    AuthPAMService shellinabox
+AuthBasicProvider external
+AuthType Basic
+AuthExternal pwauth
 );
-    my @shelluser = split(/\s+/, ($shellinaboxd{'ShellUsers'} || ""));
-    my $shelluser ="admin admin\@$DomainName";
-    foreach (@shelluser) {
-        $shelluser = $shelluser . ' ' . $_;
-        }
-    $OUT .= "Require user $shelluser\n";
 
+    $OUT .= "require user admin";
+    foreach my $user ($acc->users()) {
+        my $username = $user->key;
+        my $shelluser = $user->prop('ShellinaboxUser') || 'disabled';
+        next unless  ($shelluser eq 'enabled');
+        $OUT .= " $username";
+    }
     }
 
 $OUT .= "\n</Location>";

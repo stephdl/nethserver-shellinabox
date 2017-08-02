@@ -12,6 +12,7 @@ foreach my $event (qw (
     nethserver-shellinabox-save)) {
         templates2events("/etc/sysconfig/shellinaboxd", $event);
         templates2events('/etc/httpd/admin-conf.d/shellinabox.conf', $event);
+        templates2events("/etc/sudoers", $event);
     }
 
 # services to launch on event

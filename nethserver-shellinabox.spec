@@ -1,5 +1,5 @@
 %define name nethserver-shellinabox
-%define version 0.1.4
+%define version 0.0.12
 %define release 1
 Summary: shellinabox is an ajax webbased terminal
 Name: %{name}
@@ -13,8 +13,8 @@ BuildArchitectures: noarch
 BuildRoot: /var/tmp/%{name}-%{version}-buildroot
 BuildRequires: nethserver-devtools
 Requires: shellinabox >= 2.18
-Requires:  nethserver-httpd
-Requires: mod_authnz_pam 
+Requires:  nethserver-httpd nethserver-directory
+Requires: pwauth mod_authnz_external
 AutoReqProv: no
 
 %description
@@ -38,7 +38,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}-%{version}-filelist
 %defattr(-,root,root)
-%dir %{_nseventsdir}/%{name}-update
 %doc COPYING
 %pre
 
@@ -46,28 +45,24 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Wed Jun 28 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.4-1.ns7
-- Follow the sshd port to expand templates and restart shellinaboxd
-- Added description tag 
-- ShellInaBox.php changed to the Configuration category
-- Shell.php changed to the Administration category
+* Fri Aug 4 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.12-1.ns6
+- Shellinabox is displayed in the server-manager
 
-* Wed Mar 29 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.2-1.ns7
+* Wed Jun 28 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.11-1.ns6
+- Follow the sshd port to expand templates and restart shellinaboxd
+- Moved ShellInABox.php to the configuration menu
+- Added the description tag
+
+* Wed Mar 29 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.9-1.ns6
 - Template expansion on trusted-network
 
-* Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.1-2.ns7
+* Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.8-2.ns6
 - GPL license
-
-* Fri Nov 11 2016 stephane de labrusse <stephdl@de-labrusse.fr> 0.1.1-1.ns7
-- shellinabox is displayed in the server-manager
-
-* Wed Nov 09 2016 stephane de labrusse <stephdl@de-labrusse.fr> 0.1.0-1.ns7
-- NS7 adaptation
 
 * Sun Jan 10 2016 stephane de labrusse <stephdl@de-labrusse.fr> 0.0.8-1.sme
 - Restrict the deamon to localhost and disable ssl
 - Expand the httpd.conf following the shellinabox events
- 
+
 * Sun Oct 25 2015 stephane de labrusse <stephdl@de-labrusse.fr> 0.0.7-1.sme
 - Url in the menu and translation modified
 
@@ -85,3 +80,4 @@ rm -rf $RPM_BUILD_ROOT
 
 * Sun Oct 18 2015  stephane de labrusse <stephdl@de-labrusse.fr> 0.0.1-1.sme
 - First commit
+
