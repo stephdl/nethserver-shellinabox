@@ -52,7 +52,7 @@ elsif ($shellinaboxd{'PublicAccess'} eq 'public')
 
 elsif ($shellinaboxd{'PublicAccess'} eq 'IP')
     {
-    my @fixedip = split(/\s+/, ($shellinaboxd{'FixedIP'} || ""));
+    my @fixedip = split(/,/, ($shellinaboxd{'FixedIP'} || ""));
     my $ipform ='';
     foreach (@fixedip) {
         $ipform = $ipform . ' ' . $_;
@@ -73,7 +73,7 @@ if (($shellinaboxd{'PublicAccess'} eq 'public') || ($shellinaboxd{'WebAuth'} eq 
     AuthBasicProvider PAM
     AuthPAMService shellinabox
 );
-    my @shelluser = split(/\s+/, ($shellinaboxd{'ShellUsers'} || ""));
+    my @shelluser = split(/,/, ($shellinaboxd{'ShellUsers'} || ""));
     my $shelluser ="admin admin\@$DomainName";
     foreach (@shelluser) {
         $shelluser = $shelluser . ' ' . $_;

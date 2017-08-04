@@ -1,5 +1,5 @@
 %define name nethserver-shellinabox
-%define version 0.1.4
+%define version 0.1.5
 %define release 1
 Summary: shellinabox is an ajax webbased terminal
 Name: %{name}
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Aug 04 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.5-1.ns7
+- Verify if the username and the IP/CIDR is good
+
 * Wed Jun 28 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.4-1.ns7
 - Follow the sshd port to expand templates and restart shellinaboxd
 - Added description tag 
