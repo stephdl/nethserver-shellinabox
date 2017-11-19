@@ -1,5 +1,5 @@
 %define name nethserver-shellinabox
-%define version 0.1.5
+%define version 0.1.6
 %define release 1
 Summary: shellinabox is an ajax webbased terminal
 Name: %{name}
@@ -14,11 +14,11 @@ BuildRoot: /var/tmp/%{name}-%{version}-buildroot
 BuildRequires: nethserver-devtools
 Requires: shellinabox >= 2.18
 Requires:  nethserver-httpd
-Requires: mod_authnz_pam 
+Requires: mod_authnz_pam
 AutoReqProv: no
 
 %description
- shellinabox is an ajax web based terminal 
+ shellinabox is an ajax web based terminal
 
 %prep
 %setup
@@ -46,12 +46,16 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Nov 19 2017 stephane de labrusse <stephdl@de-labrusse.fr> 0.1.6-1.ns7
+- added a reversed css to display shellinabox on a black background
+- Thank to Ralf Jeckel
+
 * Fri Aug 04 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.5-1.ns7
 - Verify if the username and the IP/CIDR is good
 
 * Wed Jun 28 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.4-1.ns7
 - Follow the sshd port to expand templates and restart shellinaboxd
-- Added description tag 
+- Added description tag
 - ShellInaBox.php changed to the Configuration category
 - Shell.php changed to the Administration category
 
@@ -70,7 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 * Sun Jan 10 2016 stephane de labrusse <stephdl@de-labrusse.fr> 0.0.8-1.sme
 - Restrict the deamon to localhost and disable ssl
 - Expand the httpd.conf following the shellinabox events
- 
+
 * Sun Oct 25 2015 stephane de labrusse <stephdl@de-labrusse.fr> 0.0.7-1.sme
 - Url in the menu and translation modified
 
