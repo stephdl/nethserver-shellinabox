@@ -1,5 +1,5 @@
 %define name nethserver-shellinabox
-%define version 0.0.13
+%define version 0.0.14
 %define release 1
 Summary: shellinabox is an ajax webbased terminal
 Name: %{name}
@@ -18,7 +18,7 @@ Requires: pwauth mod_authnz_external
 AutoReqProv: no
 
 %description
- shellinabox is an ajax web based terminal 
+ shellinabox is an ajax web based terminal
 
 %prep
 %setup
@@ -45,6 +45,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Nov 19 2017 stephane de labrusse <stephdl@de-labrusse.fr> 0.0.14-1.ns6
+- added a reversed css to display shellinabox on a black background
+- Thank to Ralf Jeckel
+
 * Fri Aug 4 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.13-1.ns6
 - Shellinabox is displayed in the server-manager
 - Verify the IP/CIDR  before to save
@@ -81,4 +85,3 @@ rm -rf $RPM_BUILD_ROOT
 
 * Sun Oct 18 2015  stephane de labrusse <stephdl@de-labrusse.fr> 0.0.1-1.sme
 - First commit
-
